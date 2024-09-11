@@ -10,6 +10,8 @@ print('Changed Files ==> ')
 print(changed_files)
 print(len(changed_files))
 
+
+
 def validate_field_descriptions(changed_files):
     """Check if custom fields in metadata files from pull request have a description with at least one letter."""
     errors = []
@@ -46,3 +48,5 @@ def validate_field_descriptions(changed_files):
     else:
         print("All custom fields have valid descriptions.")
         #return 0  # Return 0 if all fields pass validation
+
+validate_field_descriptions(changed_files)
