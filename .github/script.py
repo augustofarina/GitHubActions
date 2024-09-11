@@ -4,4 +4,5 @@ import sys
 
 print('This is a python script running')
 changed_files = os.getenv('CHANGED_FILES').splitlines()
-print('Changed Files ==> ' + changed_files)
+print('Changed Files ==> ')
+print(changed_files)
