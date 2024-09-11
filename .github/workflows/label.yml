@@ -37,7 +37,8 @@ jobs:
 
       - name: Set CHANGED_FILES environment variable
         run: |
-          echo "CHANGED_FILES=$(cat changed_files.txt)" >> $GITHUB_ENV
+          CHANGED_FILES=$(paste -sd " " changed_files.txt)
+          echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
 
       # Runs a set of commands using the runners shell
       - name: Run python
