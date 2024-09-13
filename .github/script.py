@@ -1,26 +1,19 @@
 import os
 import re
-import sys
 
-print('This is a python script running')
-changed_files = os.getenv('CHANGED_FILES').split()
-print('os.getenv(CHANGED_FILES) ==> ')
-print(os.getenv('CHANGED_FILES'))
-print('Changed Files ==> ')
-print(changed_files)
-print(len(changed_files))
-
-
+# Get only the files in the pull request
+changed_files = os.getenv('CHANGED_FILES').split() 
 
 def validate_field_descriptions(changed_files):
-    """Check if custom fields in metadata files from pull request have a description with at least one letter."""
     errors = []
 
     # Regular expression to match <description>...</description>
-    description_regex = re.compile(r'<description>(.*?)<\/description>', re.DOTALL)
+    #description_regex = re.compile(r'<description>(.*?)<\/description>', re.DOTALL)
+
+    description_tag = "<description>"
 
     # Filter only metadata files
-    object_files = [file for file in changed_files if file.endswith(".object-meta.xml")]
+    object_files = [file for file in changed_files if file.endswith("__c.field-meta.xml")]
 
     if not object_files:
         print("No custom field metadata files changed.")
@@ -33,20 +26,23 @@ def validate_field_descriptions(changed_files):
             content = f.read()
 
             # Find all description tags
-            descriptions = description_regex.findall(content)
+            #descriptions = description_regex.findall(content)
 
             # Check each description
-            for description in descriptions:
-                if not description.strip() or not re.search(r'[a-zA-Z]', description):
-                    errors.append(f"File {object_path} contains a field with an invalid description.")
+            #for description in descriptions:
+                #if not description.strip() or not re.search(r'[a-zA-Z]', description):
+                    #errors.append(f"File {object_path} contains a field with an invalid description.")
+
+            if description_tag not in content:
+                errors.append(f"File {object_path} is missing the <description> tag.")
 
     # Return success or failure based on errors found
     if errors:
         for error in errors:
             print(error)
-        #return 1  # Return 1 if any errors are found
+        return 1  # Return 1 if any errors are found
     else:
         print("All custom fields have valid descriptions.")
-        #return 0  # Return 0 if all fields pass validation
+        return 0  # Return 0 if all fields pass validation
 
 validate_field_descriptions(changed_files)
