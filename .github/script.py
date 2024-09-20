@@ -5,21 +5,26 @@ import re
 changed_files = os.getenv('CHANGED_FILES').split() 
 
 def validate_field_descriptions(changed_files):
+    print("changed_files:")
+    print(changed_files)
     errors = []
 
     # Regular expression to match <description></description>
     #description_regex = re.compile(r'<description>(.*?)<\/description>', re.DOTALL)
     #description_tag = "<description>"
+    print("Running Regex")
     description_regex = re.compile(r'<description>\s*([\S\s]*?)\s*<\/description>', re.DOTALL)
 
     # Filter only metadata files
     object_files = [file for file in changed_files if file.endswith("__c.field-meta.xml")]
 
+    print("First validation")
     if not object_files:
         print("No custom field metadata files changed.")
         return 0  # No custom object files to validate
 
     # Validate each file
+    print("For validation")
     for object_path in object_files:
         # Open and read the file content
         with open(object_path, 'r', encoding='utf-8') as f:
@@ -45,6 +50,7 @@ def validate_field_descriptions(changed_files):
                 #errors.append(f"File {object_path} is missing the <description> tag.")
 
     # Return success or failure based on errors found
+    print("Error validation")
     if errors:
         for error in errors:
             print(error)
