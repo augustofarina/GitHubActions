@@ -3,7 +3,7 @@
     <fullName>Available__c</fullName>
     <label>Available</label>
     <required>false</required>
-    <description></description>
+    <description>Ablubleble</description>
     <trackTrending>false</trackTrending>
     <type>Phone</type>
 </CustomField>
