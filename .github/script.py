@@ -52,7 +52,9 @@ def validate_field_descriptions(changed_files):
     # Return success or failure based on errors found
     print("Error validation")
     if errors:
-        raise Exception(errors) # Throw 1 if all fields pass validation
+        for error in errors:
+            print(error)
+        raise Exception()
     else:
         print("All custom fields have valid descriptions.")
         return 0  # Return 0 if all fields pass validation
