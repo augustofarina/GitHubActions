@@ -15,7 +15,6 @@ def validate_field_descriptions(changed_files):
     # Filter only metadata files
     object_files = [file for file in changed_files if file.endswith("__c.field-meta.xml")]
 
-    print("First validation")
     if not object_files:
         return 0  # No custom object files to validate
 
@@ -46,7 +45,7 @@ def validate_field_descriptions(changed_files):
 
     # Return success or failure based on errors found
     if errors:
-        print(f"Fields that does not contains a description: {errors}")
+        print(f"{errors}")
         raise ValueError("At least one custom field does not has a description")
     else:
         print("All custom fields have valid descriptions.")
