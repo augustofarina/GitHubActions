@@ -54,6 +54,8 @@ def validate_field_descriptions(changed_files):
     if errors:
         for error in errors:
             print(error)
+        exit(1)
+        print("Return")
         return 2  # Return 1 if any errors are found
         print("Return?")
     else:
