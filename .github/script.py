@@ -54,7 +54,7 @@ def validate_field_descriptions(changed_files):
     if errors:
         for error in errors:
             print(error)
-        raise Exception()
+        raise ValueError("At least one custom field does not has a description")
     else:
         print("All custom fields have valid descriptions.")
         return 0  # Return 0 if all fields pass validation
