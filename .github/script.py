@@ -19,7 +19,7 @@ def validate_field_descriptions(changed_files):
 
     if apex_files:
         for object_Use in apex_files:
-            with open(object_path, 'r', encoding='utf-8') as f:
+            with open(object_Use, 'r', encoding='utf-8') as f:
                 contentClass = f.read()
                 classes = className_regex.findall(contentClass)
                 if not classes:
