@@ -18,11 +18,12 @@ def validate_field_descriptions(changed_files):
     apex_files = [file for file in changed_files if file.endswith(".cls")]
 
     if apex_files:
-        with open(object_path, 'r', encoding='utf-8') as f:
-            contentClass = f.read()
-            classes = className_regex.findall(contentClass)
-            if not classes:
-                raise ValueError("The class name isn't matching the established naming conventions")
+        for object_Use in apex_files:
+            with open(object_Use, 'r', encoding='utf-8') as f:
+                contentClass = f.read()
+                classes = className_regex.findall(contentClass)
+                if not classes:
+                    raise ValueError("The class name isn't matching the established naming conventions")
 
     if not object_files:
         return 0  # No custom object files to validate
