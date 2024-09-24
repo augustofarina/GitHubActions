@@ -11,7 +11,7 @@ def validate_field_descriptions(changed_files):
     #description_regex = re.compile(r'<description>(.*?)<\/description>', re.DOTALL)
     #description_tag = "<description>"
     description_regex = re.compile(r'<description>\s*([\S\s]*?)\s*<\/description>', re.DOTALL)
-    className_regex = re.compile(r'(public|private) class [A-Z][a-z]+(?:[A-Z][a-z]+)*(Handler|Helper|Controller)$')
+    className_regex = re.compile(r'(public|private) class [A-Z][a-z]+(?:[A-Z][a-z]+)*(Handler|Helper|Controller|Test)')
 
     # Filter only metadata files
     object_files = [file for file in changed_files if file.endswith("__c.field-meta.xml")]
@@ -20,14 +20,8 @@ def validate_field_descriptions(changed_files):
     if apex_files:
         for object_Use in apex_files:
             with open(object_Use, 'r', encoding='utf-8') as f:
-                print("This is f")
-                print(f)
                 contentClass = f.read()
-                print("This is contentClass")
-                print(contentClass)
                 classes = className_regex.findall(contentClass)
-                print("This is classes")
-                print(classes)
                 if not classes:
                     raise ValueError("The class name isn't matching the established naming conventions")
                 else:
