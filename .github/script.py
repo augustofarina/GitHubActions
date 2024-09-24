@@ -11,7 +11,7 @@ def validate_field_descriptions(changed_files):
     #description_regex = re.compile(r'<description>(.*?)<\/description>', re.DOTALL)
     #description_tag = "<description>"
     description_regex = re.compile(r'<description>\s*([\S\s]*?)\s*<\/description>', re.DOTALL)
-    className_regex = re.compile(r'public class [A-Z][a-z]+(?:[A-Z][a-z]+)*(Handler|Helper|Controller)$')
+    className_regex = re.compile(r'(public|private) class [A-Z][a-z]+(?:[A-Z][a-z]+)*(Handler|Helper|Controller)$')
 
     # Filter only metadata files
     object_files = [file for file in changed_files if file.endswith("__c.field-meta.xml")]
