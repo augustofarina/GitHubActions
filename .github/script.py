@@ -24,6 +24,8 @@ def validate_field_descriptions(changed_files):
                 classes = className_regex.findall(contentClass)
                 if not classes:
                     raise ValueError("The class name isn't matching the established naming conventions")
+                else:
+                    return 0
 
     if not object_files:
         return 0  # No custom object files to validate
