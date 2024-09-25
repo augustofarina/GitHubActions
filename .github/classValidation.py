@@ -30,7 +30,7 @@ def validate_class_name(changed_files):
                 classSeparate = endTrimClass.split(" {", 1)
                 apex_classes.append(classSeparate[0])
         for className in apex_classes:
-            if !test_regex.match(className):
+            if test_regex.match(className) == false:
                 testEquivalent = className + "Test"
                 numOfTest = apex_classes.count(testEquivalent)
                 if numOfTest == 0:
