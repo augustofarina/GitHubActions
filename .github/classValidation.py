@@ -8,6 +8,7 @@ def validate_class_name(changed_files):
     errors = []
 
     className_regex = re.compile(r'(public|private) class [A-Z][a-z]+(?:[A-Z][a-z]+)*(Handler|Helper|Controller|Test)')
+    test_regex = re.compile(r'(Test)$')
 
     # Filter only metadata files
     apex_files = [file for file in changed_files if file.endswith(".cls")]
@@ -19,8 +20,21 @@ def validate_class_name(changed_files):
                 classes = className_regex.findall(contentClass)
                 if not classes:
                     errors.append(f"The class {object_Use} isn't matching the established naming conventions")
-                else:
-                    return 0
+
+    if apex_files:
+        apex_classes = []
+        for class_Use in apex_files:
+            with open(class_Use, 'r', encoding='utf-8') as f:
+                fullClass = f.read()
+                endTrimClass = fullClass.lstrip("public class ")
+                classSeparate = endTrimClass.split(" {", 1)
+                apex_classes.append(classSeparate[0])
+        for className in apex_classes:
+            if !test_regex.match(className):
+                testEquivalent = className + "Test"
+                numOfTest = apex_classes.count(testEquivalent)
+                if numOfTest == 0:
+                    errors.append(f"The class {className} does not have a test class")
 
     # Return success or failure based on errors found
     if errors:
