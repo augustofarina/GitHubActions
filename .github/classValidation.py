@@ -8,7 +8,6 @@ def validate_class_name(changed_files):
     errors = []
 
     className_regex = re.compile(r'(public|private) class [A-Z][a-z]+(?:[A-Z][a-z]+)*(Handler|Helper|Controller|Test)')
-    test_regex = re.compile(r'(Test)$')
 
     # Filter only metadata files
     apex_files = [file for file in changed_files if file.endswith(".cls")]
@@ -30,7 +29,7 @@ def validate_class_name(changed_files):
                 classSeparate = endTrimClass.split(" {", 1)
                 apex_classes.append(classSeparate[0])
         for className in apex_classes:
-            if test_regex.match(className) == false:
+            if re.search("(Test)$", className) == None:
                 testEquivalent = className + "Test"
                 numOfTest = apex_classes.count(testEquivalent)
                 if numOfTest == 0:
