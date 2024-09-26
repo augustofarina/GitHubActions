@@ -32,12 +32,9 @@ def validate_class_name(changed_files):
                 classSeparate = endTrimClass[1].split(" {", 1)
                 apex_classes.append(classSeparate[0])
         for className in apex_classes:
-            print("className: " + className)
             if re.search("(Test)$", className) == None:
                 testEquivalent = className + "Test"
-                print("testEquivalent: " + testEquivalent)
                 numOfTest = apex_classes.count(testEquivalent)
-                print("numOfTest: " + str(numOfTest))
                 if numOfTest == 0:
                     errors.append(f"The class {className} does not have a test class")
 
