@@ -25,8 +25,11 @@ def validate_class_name(changed_files):
         for class_Use in apex_files:
             with open(class_Use, 'r', encoding='utf-8') as f:
                 fullClass = f.read()
-                endTrimClass = fullClass.lstrip("public class ")
-                classSeparate = endTrimClass.split(" {", 1)
+                if re.search("public class ", fullClass):
+                    endTrimClass = fullClass.split("public class ")
+                elif re.search("private class ", fullClass):
+                    endTrimClass = fullClass.split("private class ")
+                classSeparate = endTrimClass[1].split(" {", 1)
                 apex_classes.append(classSeparate[0])
         for className in apex_classes:
             print("className: " + className)
