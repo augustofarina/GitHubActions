@@ -34,7 +34,7 @@ def validate_class_name(changed_files):
                 testEquivalent = className + "Test"
                 print("testEquivalent: " + testEquivalent)
                 numOfTest = apex_classes.count(testEquivalent)
-                print("numOfTest: " + numOfTest)
+                print("numOfTest: " + str(numOfTest))
                 if numOfTest == 0:
                     errors.append(f"The class {className} does not have a test class")
 
