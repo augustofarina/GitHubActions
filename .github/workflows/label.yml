@@ -44,7 +44,7 @@ jobs:
       - name: Run python
         run: |
           python .github/script.py
-  apexTestClassAssert:
+  apexClassAssert:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -74,3 +74,33 @@ jobs:
       - name: Run python
         run: |
           python .github/classValidation.py
+  apexTestClassAssert:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
+      # Install Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: Get changed files
+        id: changed_files
+        run: |
+          git fetch origin ${{ github.base_ref }}
+          git diff --name-only --diff-filter=ACMRT origin/${{ github.base_ref }} > changed_files.txt
+
+      - name: Set CHANGED_FILES environment variable
+        run: |
+          CHANGED_FILES=$(paste -sd " " changed_files.txt)
+          echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
+
+      # Runs a set of commands using the runners shell
+      - name: Run python
+        run: |
+          python .github/testClassValidation.py
